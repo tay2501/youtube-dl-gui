@@ -1,0 +1,63 @@
+{
+  "name": "youtube-dl-gui",
+  "version": "0.0.0",
+  "description": "youtube-dl-gui",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "electron": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tay2501/youtube-dl-gui.git"
+  },
+  "keywords": [
+    "youtube-dl"
+  ],
+    "bugs": {
+    "url": "https://github.com/tay2501/youtube-dl-gui/issues"
+  },
+  "homepage": "https://github.com/tay2501/youtube-dl-gui#readme",
+  "author": "Tay2501",
+  "license": "GPL v2.0",
+  "devDependencies": {
+    "electron": "^13.1.7",
+    "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "electron-log": "^4.3.5",
+    "electron-store": "^8.0.0",
+    "keytar": "^7.7.0"
+  },
+  "build": {
+    "appId": "https://zenn.dev/tay2501",
+    "directories": {
+      "output": "electron_builder_output"
+    },
+    "files": [
+      "home",
+      "images",
+      "node_modules",
+      "setting",
+      "index.js",
+      "package.json",
+      "package-lock.json",
+      "preload.js"
+    ],
+    "mac": {
+      "icon": "images/icon/dog_footprint.icns",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "icon": "images/icon/dog_footprint.icns",
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
