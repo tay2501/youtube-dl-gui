@@ -34,7 +34,7 @@ const init_tray_icon = async () => {
       __dirname,
       "images/tray-icon/white/dog_footprint.png"
     );
-    // 一応、macOS のダークモードに対応しておく
+    // macOSのダークモード対応
     if (nativeTheme.shouldUseDarkColors === true) {
       log.debug("ダークモード");
       isDarkTheme = true;
@@ -59,7 +59,7 @@ process.on("exit", () => {
 
 // 予期せぬエラー
 process.on("uncaughtException", (err) => {
-  log.error("uncaughtException", err); // ログファイルへ記録
+  log.error("uncaughtException", err);
   app.quit(); // アプリを終了する
   throw err;
 });
@@ -112,7 +112,7 @@ function createSettingWindow() {
 /**
  * IPC通信
  */
-// Create a Setting window.
+// 設定ウインドウ
 ipcMain.handle("settingWindow:create", (event) => {
   log.debug("settingWindow:create");
   createSettingWindow();
@@ -190,6 +190,7 @@ ipcMain.handle(
   }
 );
 
+// 環境変数
 ipcMain.handle("get:process_env_path", (event) => {
   log.debug("get:process_env_path:", process.env.PATH);
   return process.env.PATH;

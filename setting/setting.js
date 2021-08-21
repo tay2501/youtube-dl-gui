@@ -1,5 +1,6 @@
 const log = window.api.electron_log;
 
+// 初期設定
 const init = async () => {
   // docker-compose-fullpath
   const docker_compose_fullpath = document.getElementById(
@@ -32,7 +33,7 @@ const init = async () => {
     youtube_password.value = await youtube_password_value;
   }
 
-  // cookiesファイル
+  // cookiesファイルフルパス
   const cookies = document.getElementById("cookies");
   const cookies_value = await window.api.get_cookies();
   if (cookies_value) {

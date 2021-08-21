@@ -8,19 +8,19 @@ const setting = document.getElementById("setting-button");
 const tbl = document.getElementById("data-table");
 const drop_area = document.getElementById("drop-area");
 
-// Request a setting window.
+// 設定画面を開く
 setting.addEventListener("click", (event) => {
   log.debug("settingWindow:create");
   window.api.open_setting_window();
 });
 
-// Clear URL.
+// URLクリア
 clear.addEventListener("click", async (event) => {
   log.debug("Clear URL");
   url.value = "";
 });
 
-// Download url.
+// ダウンロード処理
 dl_btn.addEventListener("click", async (event) => {
   log.debug("ダウンロード開始");
 
