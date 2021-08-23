@@ -10,7 +10,7 @@ const init = async () => {
   }
 
   // Docker image
-  const docker_image = document.getElementById("download-directory");
+  const docker_image = document.getElementById("docker-image");
   const docker_image_value = await window.api.get_docker_image();
   if (docker_image_value) {
     docker_image.value = await docker_image_value;
