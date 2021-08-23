@@ -24,10 +24,9 @@ clear.addEventListener("click", async (event) => {
 dl_btn.addEventListener("click", async (event) => {
   log.debug("ダウンロード開始");
 
-  const docker_compose_fullpath =
-    await window.api.get_docker_compose_fullpath();
+  const download_directory = await window.api.get_download_directory();
 
-  if (!docker_compose_fullpath) {
+  if (!download_directory) {
     // Docker-composeが未設定の場合
     window.api.show_message_box(
       "warning",
@@ -90,13 +89,12 @@ dl_btn.addEventListener("click", async (event) => {
   const cell4 = newRow.insertCell();
   const td4 = document.createElement("td");
   td4.id = "tbl_" + rownum + "_4";
-  const folder_path = path.dirname(docker_compose_fullpath);
-  const directoryNode = document.createTextNode(folder_path);
+  const directoryNode = document.createTextNode(download_directory);
   td4.appendChild(directoryNode);
   cell4.appendChild(td4);
   td4.addEventListener("dblclick", async () => {
-    log.debug("open:folder", folder_path);
-    window.api.open_folder(folder_path);
+    log.debug("open:folder", download_directory);
+    window.api.open_folder(download_directory);
   });
 
   // ダウンロード処理開始
@@ -109,7 +107,8 @@ dl_btn.addEventListener("click", async (event) => {
 // ダウンロード進捗
 window.api.on("download:status", async (arg) => {
   const status = document.getElementById("tbl_" + arg.rownum + "_3_textarea");
-  const status_value = await (arg.status) === 0 ? "finished." : arg.status.trim();
+  const status_value =
+    (await arg.status) === 0 ? "finished." : arg.status.trim();
   log.debug("download:status", status_value);
   status.value = status_value;
 });

@@ -2,14 +2,18 @@ const log = window.api.electron_log;
 
 // 初期設定
 const init = async () => {
-  // docker-compose-fullpath
-  const docker_compose_fullpath = document.getElementById(
-    "docker-compose-fullpath"
-  );
-  const docker_compose_fullpath_value =
-    await window.api.get_docker_compose_fullpath();
-  if (docker_compose_fullpath_value) {
-    docker_compose_fullpath.value = await docker_compose_fullpath_value;
+  // download_directory
+  const download_directory = document.getElementById("download-directory");
+  const download_directory_value = await window.api.get_download_directory();
+  if (download_directory_value) {
+    download_directory.value = await download_directory_value;
+  }
+
+  // Docker image
+  const docker_image = document.getElementById("download-directory");
+  const docker_image_value = await window.api.get_docker_image();
+  if (docker_image_value) {
+    docker_image.value = await docker_image_value;
   }
 
   // options.env.PATH
@@ -51,14 +55,15 @@ const init = async () => {
   const save_button = document.getElementById("save-button");
   save_button.addEventListener("click", async () => {
     const result = await window.api.save_setting(
-      docker_compose_fullpath.value,
+      download_directory.value,
       env_path.value,
+      docker_image.value,
       youtube_id.value,
       youtube_password.value,
       cookies.value,
-      debug_flg.checked,
+      debug_flg.checked
     );
-    log.debug("save-buttonクリック", result);
+    log.debug("save-buttonクリック");
     window.api.show_message_box(
       "info",
       "設定",

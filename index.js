@@ -157,8 +157,9 @@ ipcMain.handle(
   "save:setting",
   async (
     event,
-    docker_compose_fullpath,
+    download_directory,
     env_path,
+    docker_image,
     youtube_id,
     youtube_password,
     cookies,
@@ -179,7 +180,8 @@ ipcMain.handle(
     }
 
     const value = {
-      docker_compose_fullpath: docker_compose_fullpath,
+      download_directory: download_directory,
+      docker_image: docker_image,
       env_path: env_path,
       youtube_id: youtube_id,
       cookies: cookies,
@@ -218,14 +220,14 @@ ipcMain.handle("do:download", async (event, url, rownum) => {
     },
   };
   const cmd_option = get_spawn_option(
-    await store.get("setting.docker_compose_fullpath"),
+    await store.get("setting.download_directory"),
     await store.get("setting.youtube_id"),
     await keytar.getPassword(keytar_id, store.get("setting")["youtube_id"]),
     await store.get("setting.cookies"),
     url
   );
   return do_spawn(
-    "docker-compose",
+    "docker",
     cmd_option,
     spawn_option,
     store.get("setting.debug_flg"),
@@ -291,7 +293,7 @@ function do_spawn(exeFile, args, option, isDebug, rownum) {
 
 /**
  * child_processのspawnのコマンド引数取得する
- * @param {String} docker_compose_fullpath
+ * @param {String} download_directory
  * @param {String} youtube_id
  * @param {String} youtube_password
  * @param {String} cookies file path of cookies.
@@ -299,7 +301,7 @@ function do_spawn(exeFile, args, option, isDebug, rownum) {
  * @returns child_processのspawnのコマンド引数文字列
  */
 function get_spawn_option(
-  docker_compose_fullpath,
+  download_directory,
   youtube_id,
   youtube_password,
   cookies,
@@ -307,11 +309,11 @@ function get_spawn_option(
 ) {
   // コマンドオプション組立
   const cmd_opt = [
-    "-f",
-    docker_compose_fullpath,
     "run",
     "--rm",
-    "app",
+    "-v",
+    download_directory + ":/data_folder",
+    store.get("setting.docker_image") ?? "uchikoma/youtube-dl:1.0",
     "--external-downloader",
     "aria2c",
     "--external-downloader-args",

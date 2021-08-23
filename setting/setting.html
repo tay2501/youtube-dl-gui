@@ -22,22 +22,25 @@
       <h2 class="my-2">設定</h2>
       <div class="row g-3 align-items-center mb-2">
         <div class="col-5">
-          <label class="col-form-label" for="docker-compose-fullpath"
-            >docker-composeフルパス(必須)</label
+          <label class="col-form-label" for="download-directory"
+            >ダウンロードディレクトリ(必須)</label
           >
         </div>
         <div class="col-7">
           <input
             type="text"
             class="form-control mb-2 mr-sm-2"
-            id="docker-compose-fullpath"
-            placeholder="docker-compose.yaml"
+            id="download-directory"
+            placeholder="ダウンロードディレクトリ"
           />
         </div>
       </div>
+      <!--Docker install directory<-->
       <div class="row g-3 align-items-center mb-2">
         <div class="col-5">
-          <label class="col-form-label" for="env_path">options.env.PATH</label>
+          <label class="col-form-label" for="env_path"
+            >Docker install directory(必須)</label
+          >
         </div>
         <div class="col-7">
           <input
@@ -48,10 +51,27 @@
           />
         </div>
       </div>
+      <!--youtube-dl Docker image-->
+      <div class="row g-3 align-items-center mb-2">
+        <div class="col-5">
+          <label class="col-form-label" for="docker_image"
+            >youtube-dl Docker image</label
+          >
+        </div>
+        <div class="col-7">
+          <input
+            type="text"
+            class="form-control mb-2 mr-sm-2"
+            id="docker_image"
+            placeholder="uchikoma/youtube-dl:1.0"
+          />
+        </div>
+      </div>
+      <!--YouTubeログインID-->
       <div class="row g-3 align-items-center mb-2">
         <div class="col-5">
           <label class="col-form-label" for="youtube-id"
-            >YoutubeログインID</label
+            >YouTubeログインID</label
           >
         </div>
         <div class="col-7">
@@ -63,10 +83,11 @@
           />
         </div>
       </div>
+      <!---->
       <div class="row g-3 align-items-center mb-2">
         <div class="col-5">
           <label class="col-form-label" for="youtube-password"
-            >Youtubeログインパスワード</label
+            >YouTubeログインパスワード</label
           >
         </div>
         <div class="col-7">
