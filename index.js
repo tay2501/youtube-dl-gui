@@ -54,7 +54,7 @@ const init_tray_icon = async () => {
 
 // 終了処理
 process.on("exit", () => {
-  log.info("process.on exit");
+  log.info("exit");
 });
 
 // 予期せぬエラー
@@ -65,11 +65,11 @@ process.on("uncaughtException", (err) => {
 });
 
 app.on("quit", () => {
-  log.debug("app quit");
+  log.debug("quit");
 });
 
 app.on("window-all-closed", () => {
-  log.debug("app.window-all-closed");
+  log.debug("window-all-closed");
 });
 
 // ウインドウ
@@ -212,7 +212,7 @@ ipcMain.handle("show:messagebox", (event, type, title, msg, detail) => {
 
 // ダウンロード
 ipcMain.handle("do:download", async (event, url, rownum) => {
-  log.debug("do:download", event, url, rownum);
+  log.debug("do:download", url, rownum);
   const env_path = await store.get("setting.env_path");
   const spawn_option = {
     env: {
@@ -248,9 +248,9 @@ function do_spawn(exeFile, args, option, isDebug, rownum) {
 
   const cp = require("child_process");
   const child = cp.spawn(exeFile, args, option);
-  log.debug("pid:", child.pid);
+  log.debug("child pid:", child.pid);
   child.stdout.on("data", (data) => {
-    log.debug("child.stdout:", data.toString(), "pid:", child.pid);
+    log.debug("child.stdout:", data.toString());
     const send_data = {
       status: data.toString(),
       rownum: rownum,
