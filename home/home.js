@@ -99,7 +99,7 @@ dl_btn.addEventListener("click", async (event) => {
 
   // ダウンロード処理開始
   log.debug("ダウンロード処理開始");
-  const dl_result = await window.api.do_download(u, rownum);
+  window.api.do_download(u, rownum);
   log.debug("ダウンロード処理完了");
   url.value = "";
 });
