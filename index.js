@@ -8,6 +8,7 @@ const Store = require("electron-store");
 const store = new Store();
 
 const keytar_id = "youtube-dl-gui";
+const default_docker_image = "uchikoma/youtube-dl:1.0";
 
 const is_windows = process.platform === "win32";
 const is_mac = process.platform === "darwin";
@@ -320,7 +321,10 @@ function get_spawn_option(
     "--rm",
     "-v",
     download_directory + ":/data_folder",
-    store.get("setting.docker_image") ?? "uchikoma/youtube-dl:1.0",
+    // Dockerイメージの設定(未設定の場合はデフォルトイメージを使用)
+    store.get("setting.docker_image")
+      ? store.get("setting.docker_image")
+      : default_docker_image,
     "--external-downloader",
     "aria2c",
     "--external-downloader-args",
