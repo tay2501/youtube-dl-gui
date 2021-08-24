@@ -138,7 +138,10 @@ ipcMain.handle("open:folder", async (event, filePaht) => {
 
 // store読み込み
 ipcMain.handle("get:setting", async (event, key) => {
-  const result = await store.get("setting")[key];
+  let result = "";
+  if (store.has("setting")) {
+    result = await store.get("setting")[key];
+  }
   log.debug("get:setting", " key:", key, "result:", result);
   return result;
 });
@@ -146,10 +149,14 @@ ipcMain.handle("get:setting", async (event, key) => {
 // youtube_password読み取り
 ipcMain.handle("get:youtube_password", async (event) => {
   log.debug("get:youtube_password");
-  return await keytar.getPassword(
-    keytar_id,
-    store.get("setting")["youtube_id"]
-  );
+  let result = "";
+  if (store.has("setting")) {
+    result = await keytar.getPassword(
+      keytar_id,
+      store.get("setting")["youtube_id"]
+    );
+  }
+  return result;
 });
 
 // 設定保存
@@ -167,7 +174,7 @@ ipcMain.handle(
   ) => {
     if (youtube_id) {
       if (youtube_password) {
-        log.debug("setPassword");
+        log.debug("savePassword");
         keytar.setPassword(keytar_id, youtube_id, youtube_password);
       } else {
         log.debug("deletePassword");
