@@ -19,6 +19,11 @@ contextBridge.exposeInMainWorld("api", {
   get_cookies: async () => await ipcRenderer.invoke("get:setting", "cookies"),
   get_debug_flg: async () =>
     await ipcRenderer.invoke("get:setting", "debug_flg"),
+  get_high_quality_flg: async () =>
+    await ipcRenderer.invoke("get:setting", "high_quality_flg"),
+  get_aria2c_j: async () => await ipcRenderer.invoke("get:setting", "aria2c_j"),
+  get_aria2c_x: async () => await ipcRenderer.invoke("get:setting", "aria2c_x"),
+  get_aria2c_k: async () => await ipcRenderer.invoke("get:setting", "aria2c_k"),
   save_setting: async (
     download_directory,
     env_path,
@@ -26,7 +31,11 @@ contextBridge.exposeInMainWorld("api", {
     youtube_id,
     youtube_password,
     cookies,
-    debug_flg
+    debug_flg,
+    high_quality_flg,
+    aria2c_j,
+    aria2c_k,
+    aria2c_x
   ) =>
     await ipcRenderer.invoke(
       "save:setting",
@@ -36,7 +45,11 @@ contextBridge.exposeInMainWorld("api", {
       youtube_id,
       youtube_password,
       cookies,
-      debug_flg
+      debug_flg,
+      high_quality_flg,
+      aria2c_j,
+      aria2c_k,
+      aria2c_x
     ),
   open_setting_window: async () =>
     await ipcRenderer.invoke("settingWindow:create"),

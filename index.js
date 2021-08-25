@@ -81,8 +81,8 @@ let settingWindow;
 app.on("ready", () => {
   init_tray_icon();
   homeWindow = new BrowserWindow({
-    width: 1000,
-    height: 600,
+    width: 1024,
+    height: 768,
     icon: path.join(__dirname, "images/icon/dog_footprint.icns"),
     webPreferences: {
       nodeIntegration: false,
@@ -98,7 +98,7 @@ app.on("ready", () => {
 function createSettingWindow() {
   settingWindow = new BrowserWindow({
     width: 860,
-    height: 560,
+    height: 600,
     icon: path.join(__dirname, "images/icon/dog_footprint.icns"),
     webPreferences: {
       nodeIntegration: false,
@@ -171,7 +171,11 @@ ipcMain.handle(
     youtube_id,
     youtube_password,
     cookies,
-    debug_flg
+    debug_flg,
+    high_quality_flg,
+    aria2c_j,
+    aria2c_x,
+    aria2c_k
   ) => {
     if (youtube_id) {
       if (youtube_password) {
@@ -194,6 +198,10 @@ ipcMain.handle(
       youtube_id: youtube_id,
       cookies: cookies,
       debug_flg: debug_flg,
+      high_quality_flg: high_quality_flg,
+      aria2c_j: aria2c_j,
+      aria2c_x: aria2c_x,
+      aria2c_k: aria2c_k,
     };
     log.debug("save:setting", value);
     store.set("setting", value);
@@ -316,6 +324,27 @@ function get_spawn_option(
   url
 ) {
   // コマンドオプション組立
+  let external_downloader_args = "--continue";
+  const aria2c_j = store.get("setting.aria2c_j");
+  if (aria2c_j) {
+    external_downloader_args =
+      external_downloader_args + " --max-concurrent-downloads " + aria2c_j;
+  }
+
+  const aria2c_x = store.get("setting.aria2c_x");
+  if (aria2c_x) {
+    external_downloader_args =
+      external_downloader_args + " --max-connection-per-server " + aria2c_x;
+  }
+
+  const aria2c_k = store.get("setting.aria2c_k");
+  if (aria2c_k) {
+    external_downloader_args =
+      external_downloader_args + " --min-split-size " + aria2c_k;
+  }
+
+  log.debug("external_downloader_args", external_downloader_args);
+
   const cmd_opt = [
     "run",
     "--rm",
@@ -328,15 +357,24 @@ function get_spawn_option(
     "--external-downloader",
     "aria2c",
     "--external-downloader-args",
-    "-c -x 4 -k 2M",
+    external_downloader_args,
     "--geo-bypass",
     "--add-metadata",
     "--no-overwrites",
-    "-f",
-    "bestvideo+bestaudio",
-    "--merge-output-format",
-    "mp4",
   ];
+
+  if (store.get("setting.high_quality_flg")) {
+    // 高画質モード
+    cmd_opt.push("--format");
+    cmd_opt.push("bestvideo+bestaudio");
+    cmd_opt.push("--merge-output-format");
+    cmd_opt.push("mp4");
+  } else {
+    cmd_opt.push("--format");
+    cmd_opt.push("mp4");
+  }
+
+  log.debug("cmd_opt", cmd_opt);
 
   if (youtube_id && youtube_password) {
     // youtube idとpasswordの設定がある時のみ設定

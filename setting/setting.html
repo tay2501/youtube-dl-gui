@@ -83,7 +83,7 @@
           />
         </div>
       </div>
-      <!---->
+      <!--YouTubeログインパスワード-->
       <div class="row g-3 align-items-center mb-2">
         <div class="col-5">
           <label class="col-form-label" for="youtube-password"
@@ -99,6 +99,7 @@
           />
         </div>
       </div>
+      <!--cookies-->
       <div class="row g-3 align-items-center mb-2">
         <div class="col-5">
           <label class="col-form-label" for="cookies">cookies.text</label>
@@ -112,6 +113,7 @@
           />
         </div>
       </div>
+      <!--デバッグモード-->
       <div class="form-check mb-2">
         <label class="form-check-label" for="debug-flg">デバッグモード</label>
         <input
@@ -121,7 +123,60 @@
           id="debug-flg"
         />
       </div>
-      <button id="save-button" class="btn btn-primary">保存</button>
+      <!--高度な設定-->
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              詳細設定
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <h2>モード</h2>
+              <div class="form-check mb-2">
+                <label class="form-check-label" for="high-quality-flg">high quarity mode</label>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="high-quality-flg"
+                />
+              </div>
+              <!--aria2c-->
+              <h2>aria2c</h2>
+              <div class="form-check mb-2">
+                <label class="form-check-label" for="aria2c-j">最大並列ダウンロード数</label>
+                <input
+                type="text"
+                class="form-control mb-2 mr-sm-2"
+                id="aria2c-j"
+                placeholder="5"
+              />
+              </div>
+              <div class="form-check mb-2">
+                <label class="form-check-label" for="aria2c-x">1サーバー当りの最大接続数</label>
+                <input
+                type="text"
+                class="form-control mb-2 mr-sm-2"
+                id="aria2c-x"
+                placeholder="1"
+              />
+              </div>
+              <div class="form-check mb-2">
+                <label class="form-check-label" for="aria2c-k">分割の最小サイズ</label>
+                <input
+                type="text"
+                class="form-control mb-2 mr-sm-2"
+                id="aria2c-k"
+                placeholder="20M"
+              />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button id="save-button" class="btn btn-primary my-2">保存</button>
     </div>
     <script type="text/javascript" src="setting.js" defer></script>
   </body>

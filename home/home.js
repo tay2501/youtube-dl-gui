@@ -27,12 +27,12 @@ dl_btn.addEventListener("click", async (event) => {
   const download_directory = await window.api.get_download_directory();
 
   if (!download_directory) {
-    // Docker-composeが未設定の場合
+    // ダウンロード先が未設定の場合
     window.api.show_message_box(
       "warning",
       "ホーム",
       "初期設定をしてください。",
-      "設定画面でdocker-compose格納先を設定してください。"
+      "設定画面でダウンロード先を設定してください。"
     );
     return;
   }
@@ -108,7 +108,7 @@ dl_btn.addEventListener("click", async (event) => {
 window.api.on("download:status", async (arg) => {
   const status = document.getElementById("tbl_" + arg.rownum + "_3_textarea");
   const status_value =
-    (await arg.status) === 0 ? "finished." : arg.status.trim();
+    (await arg.status) === 0 ? "finished." : arg.status;
   log.debug("download:status", status_value);
   status.value = status_value;
 });

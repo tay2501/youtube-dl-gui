@@ -51,6 +51,36 @@ const init = async () => {
     debug_flg.checked = await debug_flg_value;
   }
 
+  // 詳細設定
+  // high-quality-flg
+  const high_quality_flg = document.getElementById("high-quality-flg");
+  const high_quality_flg_value = await window.api.get_high_quality_flg();
+  if (high_quality_flg_value) {
+    high_quality_flg.checked = await high_quality_flg_value;
+  }
+
+  // aria2c
+  // 最大並列ダウンロード数(j)
+  const aria2c_j = document.getElementById("aria2c-j");
+  const aria2c_j_value = await window.api.get_aria2c_j();
+  if (aria2c_j_value) {
+    aria2c_j.value = await aria2c_j_value;
+  }
+
+  // 1サーバー当りの最大接続数(x)
+  const aria2c_x = document.getElementById("aria2c-x");
+  const aria2c_x_value = await window.api.get_aria2c_x();
+  if (aria2c_x_value) {
+    aria2c_x.value = await aria2c_x_value;
+  }
+
+  // 分割の最小サイズ(k)
+  const aria2c_k = document.getElementById("aria2c-k");
+  const aria2c_k_value = await window.api.get_aria2c_k();
+  if (aria2c_k_value) {
+    aria2c_k.value = await aria2c_k_value;
+  }
+
   // save-buttonクリック
   const save_button = document.getElementById("save-button");
   save_button.addEventListener("click", async () => {
@@ -61,7 +91,11 @@ const init = async () => {
       youtube_id.value,
       youtube_password.value,
       cookies.value,
-      debug_flg.checked
+      debug_flg.checked,
+      high_quality_flg.checked,
+      aria2c_j.value,
+      aria2c_x.value,
+      aria2c_k.value
     );
     log.debug("save-buttonクリック");
     window.api.show_message_box(
