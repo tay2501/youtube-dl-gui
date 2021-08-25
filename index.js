@@ -235,10 +235,15 @@ ipcMain.handle("do:download", async (event, url, rownum) => {
       PATH: env_path ? process.env.PATH + ":" + env_path : process.env.PATH,
     },
   };
+
+  const youtube_id = store.get("setting.youtube_id");
+
   const cmd_option = get_spawn_option(
     await store.get("setting.download_directory"),
-    await store.get("setting.youtube_id"),
-    await keytar.getPassword(keytar_id, store.get("setting")["youtube_id"]),
+    await youtube_id,
+    (await youtube_id)
+      ? keytar.getPassword(keytar_id, store.get("setting")["youtube_id"])
+      : "",
     await store.get("setting.cookies"),
     url
   );
@@ -342,8 +347,6 @@ function get_spawn_option(
     external_downloader_args =
       external_downloader_args + " --min-split-size " + aria2c_k;
   }
-
-  log.debug("external_downloader_args", external_downloader_args);
 
   const cmd_opt = [
     "run",
