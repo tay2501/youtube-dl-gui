@@ -113,29 +113,33 @@
           />
         </div>
       </div>
-      <!--デバッグモード-->
-      <div class="form-check mb-2">
-        <label class="form-check-label" for="debug-flg">デバッグモード</label>
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="debug-flg"
-        />
-      </div>
       <!--高度な設定-->
       <div class="accordion" id="accordionExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
               詳細設定
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
             <div class="accordion-body">
               <h2>モード</h2>
               <div class="form-check mb-2">
-                <label class="form-check-label" for="high-quality-flg">high quarity mode</label>
+                <label class="form-check-label" for="high-quality-flg"
+                  >high quarity mode</label
+                >
                 <input
                   class="form-check-input"
                   type="checkbox"
@@ -146,37 +150,58 @@
               <!--aria2c-->
               <h2>aria2c</h2>
               <div class="form-check mb-2">
-                <label class="form-check-label" for="aria2c-j">最大並列ダウンロード数</label>
+                <label class="form-check-label" for="aria2c-j"
+                  >最大並列ダウンロード数</label
+                >
                 <input
-                type="text"
-                class="form-control mb-2 mr-sm-2"
-                id="aria2c-j"
-                placeholder="5"
-              />
+                  type="text"
+                  class="form-control mb-2 mr-sm-2"
+                  id="aria2c-j"
+                  placeholder="5"
+                />
               </div>
               <div class="form-check mb-2">
-                <label class="form-check-label" for="aria2c-x">1サーバー当りの最大接続数</label>
+                <label class="form-check-label" for="aria2c-x"
+                  >1サーバー当りの最大接続数</label
+                >
                 <input
-                type="text"
-                class="form-control mb-2 mr-sm-2"
-                id="aria2c-x"
-                placeholder="1"
-              />
+                  type="text"
+                  class="form-control mb-2 mr-sm-2"
+                  id="aria2c-x"
+                  placeholder="1"
+                />
               </div>
               <div class="form-check mb-2">
-                <label class="form-check-label" for="aria2c-k">分割の最小サイズ</label>
+                <label class="form-check-label" for="aria2c-k"
+                  >分割の最小サイズ</label
+                >
                 <input
-                type="text"
-                class="form-control mb-2 mr-sm-2"
-                id="aria2c-k"
-                placeholder="20M"
-              />
+                  type="text"
+                  class="form-control mb-2 mr-sm-2"
+                  id="aria2c-k"
+                  placeholder="20M"
+                />
+              </div>
+              <!--デバッグモード-->
+              <div class="form-check mb-2">
+                <label class="form-check-label" for="debug-flg"
+                  >デバッグモード</label
+                >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="debug-flg"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button id="save-button" class="btn btn-primary my-2">保存</button>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end my-2">
+        <button id="save-button" class="btn btn-primary me-md-2">保存</button>
+        <button id="close-button" class="btn btn-primary">閉じる</button>
+      </div>
     </div>
     <script type="text/javascript" src="setting.js" defer></script>
   </body>

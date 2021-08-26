@@ -51,6 +51,7 @@ contextBridge.exposeInMainWorld("api", {
       aria2c_k,
       aria2c_x
     ),
+  close_setting: async () => await ipcRenderer.invoke("close:setting"),
   open_setting_window: async () =>
     await ipcRenderer.invoke("settingWindow:create"),
   open_folder: async (folder) =>

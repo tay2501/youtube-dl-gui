@@ -105,6 +105,13 @@ const init = async () => {
       "設定の保存が完了しました。"
     );
   });
+
+  // close-buttonクリック
+  const close_button = document.getElementById("close-button");
+  close_button.addEventListener("click", async () => {
+    log.debug("close-buttonクリック");
+    const result = await window.api.close_setting();
+  });
 };
 
 init();
