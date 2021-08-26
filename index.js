@@ -16,9 +16,6 @@ const is_linux = process.platform === "linux";
 
 // アイコン
 const init_tray_icon = async () => {
-  /**
-   * 処理開始
-   */
   log.info("index.js開始");
   let imgFilePath;
   if (is_windows) {
@@ -100,6 +97,9 @@ function createSettingWindow() {
     width: 860,
     height: 600,
     icon: path.join(__dirname, "images/icon/dog_footprint.icns"),
+    parent: homeWindow,
+    modal: true,
+    show: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -108,6 +108,9 @@ function createSettingWindow() {
   });
   settingWindow.loadFile("setting/setting.html");
   settingWindow.on("closed", () => (settingWindow = null));
+  settingWindow.once('ready-to-show', () => {
+    settingWindow.show();
+  })
 }
 
 /**
@@ -208,6 +211,12 @@ ipcMain.handle(
     store.set("setting", value);
   }
 );
+
+// 設定画面の閉じるボタン
+ipcMain.handle("close:setting", async () => {
+  log.debug("close:setting");
+  settingWindow.close();
+});
 
 // 環境変数
 ipcMain.handle("get:process_env_path", (event) => {
