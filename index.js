@@ -108,9 +108,9 @@ function createSettingWindow() {
   });
   settingWindow.loadFile("setting/setting.html");
   settingWindow.on("closed", () => (settingWindow = null));
-  settingWindow.once('ready-to-show', () => {
+  settingWindow.once("ready-to-show", () => {
     settingWindow.show();
-  })
+  });
 }
 
 /**
