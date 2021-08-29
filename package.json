@@ -33,7 +33,7 @@
   "build": {
     "appId": "https://zenn.dev/tay2501",
     "directories": {
-      "output": "electron_builder_output"
+      "output": "../electron_builder_output"
     },
     "files": [
       "home",
