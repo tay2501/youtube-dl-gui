@@ -82,6 +82,7 @@ dl_btn.addEventListener("click", async (event) => {
   statusTextArea.value = "downloading...";
   statusTextArea.className = "form-control";
   statusTextArea.rows = 2;
+  statusTextArea.style.backgroundColor = "#FFFFEF";
   td3.appendChild(statusTextArea);
   cell3.appendChild(td3);
 
@@ -107,8 +108,13 @@ dl_btn.addEventListener("click", async (event) => {
 // ダウンロード進捗
 window.api.on("download:status", async (arg) => {
   const status = document.getElementById("tbl_" + arg.rownum + "_3_textarea");
-  const status_value =
-    (await arg.status) === 0 ? "finished." : arg.status;
-  log.debug("download:status", status_value);
+  const isFinished = (await arg.status) === 0;
+  if (isFinished) status.style.backgroundColor = "#F2F2F2";
+  const status_value = isFinished
+    ? (status.value += "\nFinished.")
+    : (status.value += arg.status);
+
   status.value = status_value;
+  status.scrollTop = status.scrollHeight;
+  log.debug("download:status", status_value);
 });

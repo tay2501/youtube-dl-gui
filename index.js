@@ -50,15 +50,27 @@ const init_tray_icon = async () => {
   tray.setContextMenu(contextMenu);
 };
 
+const showErrorMessageSync = (msg) => {
+  log.debug("showErrorMessageSync", msg);
+  const options = {
+    type: "error",
+    title: "エラー",
+    message: "エラーが発生しました。",
+    detail: msg,
+  };
+  dialog.showMessageBoxSync(options);
+};
+
 // 終了処理
 process.on("exit", () => {
   log.info("exit");
 });
 
 // 予期せぬエラー
-process.on("uncaughtException", (err) => {
+process.on("uncaughtException", async (err) => {
   log.error("uncaughtException", err);
-  app.quit(); // アプリを終了する
+  showErrorMessageSync(err);
+  app.quit();
   throw err;
 });
 
@@ -239,6 +251,8 @@ ipcMain.handle("show:messagebox", (event, type, title, msg, detail) => {
 // ダウンロード
 ipcMain.handle("do:download", async (event, url, rownum) => {
   log.debug("do:download", url, rownum);
+
+  // Dockerモジュール格納先
   const env_path = await store.get("setting.env_path");
   const spawn_option = {
     env: {
@@ -257,18 +271,9 @@ ipcMain.handle("do:download", async (event, url, rownum) => {
     await store.get("setting.cookies"),
     url
   );
-  return do_spawn(
-    "docker",
-    cmd_option,
-    spawn_option,
-    store.get("setting.debug_flg"),
-    rownum
-  );
-});
 
-// ダウンロード処理
-function do_spawn(exeFile, args, option, isDebug, rownum) {
-  log.debug("ダウンロード開始", exeFile, option, isDebug);
+  // デバッグモード
+  const isDebug = store.get("setting.debug_flg");
   if (isDebug) {
     homeWindow.webContents.send("download:status", {
       status: "debug mode!",
@@ -276,6 +281,13 @@ function do_spawn(exeFile, args, option, isDebug, rownum) {
     });
     return "debug mode!";
   }
+
+  return do_spawn("docker", cmd_option, spawn_option, rownum);
+});
+
+// ダウンロード処理
+function do_spawn(exeFile, args, option, rownum) {
+  log.debug("ダウンロード開始", exeFile, option, rownum);
 
   const cp = require("child_process");
   const child = cp.spawn(exeFile, args, option);
@@ -318,7 +330,7 @@ function do_spawn(exeFile, args, option, isDebug, rownum) {
   });
   child.on("error", (err) => {
     log.error("child error : ", err);
-    throw err;
+    showErrorMessageSync(err.message);
   });
 }
 
