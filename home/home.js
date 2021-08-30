@@ -61,41 +61,34 @@ dl_btn.addEventListener("click", async (event) => {
   const td1 = document.createElement("th");
   td1.id = "tbl_" + rownum + "_1";
   const noTextNode = document.createTextNode(rownum);
-  td1.appendChild(noTextNode);
-  cell1.appendChild(td1);
+  cell1.appendChild(noTextNode);
 
   // URL
   const cell2 = newRow.insertCell();
-  const td2 = document.createElement("td");
-  td2.id = "tbl_" + rownum + "_2";
+  cell2.id = "tbl_" + rownum + "_2";
   const urlTextNode = document.createTextNode(u);
-  td2.appendChild(urlTextNode);
-  td2.addEventListener("dblclick", async () => {
+  cell2.addEventListener("dblclick", async () => {
     log.debug("open:url", u);
     window.api.open_url(u);
   });
-  cell2.appendChild(td2);
+  cell2.appendChild(urlTextNode);
 
   // status
   const cell3 = newRow.insertCell();
-  const td3 = document.createElement("td");
-  td3.id = "tbl_" + rownum + "_3";
+  cell3.id = "tbl_" + rownum + "_3";
   const statusTextArea = document.createElement("textarea");
   statusTextArea.id = "tbl_" + rownum + "_3_textarea";
   statusTextArea.value = "downloading...";
   statusTextArea.className = "form-control";
   statusTextArea.rows = 2;
-  td3.appendChild(statusTextArea);
-  cell3.appendChild(td3);
+  cell3.appendChild(statusTextArea);
 
   // Directory
   const cell4 = newRow.insertCell();
-  const td4 = document.createElement("td");
-  td4.id = "tbl_" + rownum + "_4";
+  cell4.id = "tbl_" + rownum + "_4";
   const directoryNode = document.createTextNode(download_directory);
-  td4.appendChild(directoryNode);
-  cell4.appendChild(td4);
-  td4.addEventListener("dblclick", async () => {
+  cell4.appendChild(directoryNode);
+  cell4.addEventListener("dblclick", async () => {
     log.debug("open:folder", download_directory);
     window.api.open_folder(download_directory);
   });
@@ -124,5 +117,5 @@ window.api.on("download:status", async (arg) => {
   status.value = isFinished ? "Finished." : (status.value += arg_status);
 
   status.scrollTop = status.scrollHeight;
-  log.debug("download:status", status_value);
+  log.debug("download:status", status.value);
 });
