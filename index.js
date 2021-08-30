@@ -90,7 +90,7 @@ let settingWindow;
 app.on("ready", () => {
   init_tray_icon();
   homeWindow = new BrowserWindow({
-    width: 1024,
+    width: 1280,
     height: 768,
     icon: path.join(__dirname, "images/icon/dog_footprint.icns"),
     webPreferences: {
@@ -285,6 +285,20 @@ ipcMain.handle("do:download", async (event, url, rownum) => {
   return do_spawn("docker", cmd_option, spawn_option, rownum);
 });
 
+/**
+ * Rendererにステータスを通知
+ * @param {String} data 通知内容
+ * @param {Number} rownum 対象の行番号
+ */
+const send_download_status = async (rownum, data, isError) => {
+  const send_data = {
+    rownum: rownum,
+    status: data.toString(),
+    isError: isError,
+  };
+  homeWindow.webContents.send("download:status", send_data);
+};
+
 // ダウンロード処理
 function do_spawn(exeFile, args, option, rownum) {
   log.debug("ダウンロード開始", exeFile, option, rownum);
@@ -294,42 +308,23 @@ function do_spawn(exeFile, args, option, rownum) {
   log.debug("child pid:", child.pid);
   child.stdout.on("data", (data) => {
     log.debug("child.stdout:", data.toString());
-    const send_data = {
-      status: data.toString(),
-      rownum: rownum,
-    };
-    homeWindow.webContents.send("download:status", send_data);
-    return send_data;
+    send_download_status(rownum, data.toString(), false);
   });
   child.stderr.on("data", (data) => {
     log.debug("child.stderr", data.toString());
-    const send_data = {
-      status: data.toString(),
-      rownum: rownum,
-    };
-    homeWindow.webContents.send("download:status", send_data);
-    return send_data;
+    send_download_status(rownum, data.toString(), true);
   });
   child.on("close", (code) => {
     log.debug("child close : ", code);
-    const send_data = {
-      status: code,
-      rownum: rownum,
-    };
-    homeWindow.webContents.send("download:status", send_data);
-    return send_data;
+    send_download_status(rownum, code, false);
   });
   child.on("exit", (data) => {
     log.debug("child exit : ", data.toString());
-    const send_data = {
-      status: data.toString(),
-      rownum: rownum,
-    };
-    homeWindow.webContents.send("download:status", send_data);
-    return send_data;
+    send_download_status(rownum, data.toString(), false);
   });
   child.on("error", (err) => {
     log.error("child error : ", err);
+    send_download_status(rownum, err, ture);
     showErrorMessageSync(err.message);
   });
 }

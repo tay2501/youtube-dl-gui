@@ -52,7 +52,10 @@ dl_btn.addEventListener("click", async (event) => {
   const tblBody = document.getElementById("data-tbody");
   const newRow = tblBody.insertRow(-1);
   const cell1 = newRow.insertCell();
-  const rownum = tbl.rows.length - 1;
+  const rownum = (await tbl.rows.length) - 1;
+  // 行の背景色を設定
+  newRow.id = "tbl_" + rownum;
+  newRow.className = "table-primary";
 
   // 行数
   const td1 = document.createElement("th");
@@ -82,7 +85,6 @@ dl_btn.addEventListener("click", async (event) => {
   statusTextArea.value = "downloading...";
   statusTextArea.className = "form-control";
   statusTextArea.rows = 2;
-  statusTextArea.style.backgroundColor = "#FFFFEF";
   td3.appendChild(statusTextArea);
   cell3.appendChild(td3);
 
@@ -107,14 +109,20 @@ dl_btn.addEventListener("click", async (event) => {
 
 // ダウンロード進捗
 window.api.on("download:status", async (arg) => {
-  const status = document.getElementById("tbl_" + arg.rownum + "_3_textarea");
-  const isFinished = (await arg.status) === 0;
-  if (isFinished) status.style.backgroundColor = "#F2F2F2";
-  const status_value = isFinished
-    ? (status.value += "\nFinished.")
-    : (status.value += arg.status);
+  const rownum = await arg.rownum;
+  const isError = await arg.isError;
+  const arg_status = await arg.status;
 
-  status.value = status_value;
+  const isFinished = (await arg_status) == 0;
+
+  const tr = document.getElementById("tbl_" + rownum);
+  if (isFinished) tr.className = "table-success";
+  if (isError) tr.className = "table-danger";
+
+  const status = document.getElementById("tbl_" + rownum + "_3_textarea");
+  // ステータス出力文字列
+  status.value = isFinished ? "Finished." : (status.value += arg_status);
+
   status.scrollTop = status.scrollHeight;
   log.debug("download:status", status_value);
 });
