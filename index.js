@@ -54,8 +54,8 @@ const showErrorMessageSync = (msg) => {
   log.debug("showErrorMessageSync", msg);
   const options = {
     type: "error",
-    title: "エラー",
-    message: "エラーが発生しました。",
+    title: "error",
+    message: "error",
     detail: msg,
   };
   dialog.showMessageBoxSync(options);
@@ -71,7 +71,7 @@ process.on("uncaughtException", async (err) => {
   log.error("uncaughtException", err);
   showErrorMessageSync(err);
   app.quit();
-  throw err;
+  process.exit(1);
 });
 
 app.on("quit", () => {

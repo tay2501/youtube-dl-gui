@@ -30,9 +30,9 @@ dl_btn.addEventListener("click", async (event) => {
     // ダウンロード先が未設定の場合
     window.api.show_message_box(
       "warning",
-      "ホーム",
-      "初期設定をしてください。",
-      "設定画面でダウンロード先を設定してください。"
+      "Home",
+      "No download directory",
+      "Set download directory first at setting."
     );
     return;
   }
@@ -42,9 +42,9 @@ dl_btn.addEventListener("click", async (event) => {
     // URLが未設定の場合
     window.api.show_message_box(
       "warning",
-      "ホーム",
-      "URL未入力",
-      "URLを入力してください。"
+      "Home",
+      "No URL",
+      "Enter URL."
     );
     return;
   }
@@ -109,8 +109,14 @@ window.api.on("download:status", async (arg) => {
   const isFinished = (await arg_status) == 0;
 
   const tr = document.getElementById("tbl_" + rownum);
+
+  if (isError) {
+    tr.className = "table-danger";
+  } else {
+    tr.className = "table-info";
+  }
+  // 処理終了背景色
   if (isFinished) tr.className = "table-success";
-  if (isError) tr.className = "table-danger";
 
   const status = document.getElementById("tbl_" + rownum + "_3_textarea");
   // ステータス出力文字列

@@ -16,34 +16,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="setting.css" />
-    <title>設定画面</title>
+    <title>Settings</title>
   </head>
   <body>
     <div class="container">
-      <h2 class="my-2">設定</h2>
+      <h2 class="my-2">Settings</h2>
       <div class="row g-3 align-items-center mb-2">
-        <div class="col-5">
+        <div class="col-3">
           <label class="col-form-label" for="download-directory"
-            >ダウンロードディレクトリ(必須)</label
+            >Download directory *</label
           >
         </div>
-        <div class="col-7">
+        <div class="col-9">
           <input
             type="text"
             class="form-control mb-2 mr-sm-2"
             id="download-directory"
-            placeholder="ダウンロードディレクトリ"
+            placeholder="Download directory"
+            required
           />
         </div>
       </div>
       <!--YouTubeログインID-->
       <div class="row g-3 align-items-center mb-2">
-        <div class="col-5">
-          <label class="col-form-label" for="youtube-id"
-            >YouTubeログインID</label
-          >
+        <div class="col-3">
+          <label class="col-form-label" for="youtube-id">YouTube ID</label>
         </div>
-        <div class="col-7">
+        <div class="col-9">
           <input
             type="text"
             class="form-control mb-2 mr-sm-2"
@@ -54,12 +53,12 @@
       </div>
       <!--YouTubeログインパスワード-->
       <div class="row g-3 align-items-center mb-2">
-        <div class="col-5">
+        <div class="col-3">
           <label class="col-form-label" for="youtube-password"
-            >YouTubeログインパスワード</label
+            >YouTube password</label
           >
         </div>
-        <div class="col-7">
+        <div class="col-9">
           <input
             type="password"
             class="form-control mb-2 mr-sm-2"
@@ -70,10 +69,10 @@
       </div>
       <!--cookies-->
       <div class="row g-3 align-items-center mb-2">
-        <div class="col-5">
+        <div class="col-3">
           <label class="col-form-label" for="cookies">cookies file</label>
         </div>
-        <div class="col-7">
+        <div class="col-9">
           <input
             type="text"
             class="form-control mb-2 mr-sm-2"
@@ -83,7 +82,7 @@
         </div>
       </div>
       <!--高度な設定-->
-      <div class="accordion mb-2" id="advancedSettings">
+      <div class="accordion mb-3" id="advancedSettings">
         <div class="accordion-item">
           <h2 class="accordion-header" id="heading">
             <button
@@ -94,7 +93,7 @@
               aria-expanded="true"
               aria-controls="collapseOne"
             >
-              詳細設定
+              Advanced settings
             </button>
           </h2>
           <div
@@ -104,13 +103,13 @@
             data-bs-parent="#advancedSettings"
           >
             <div class="accordion-body">
-              <h1>詳細設定</h1>
+              <h1>Advanced settings</h1>
               <!--モード-->
               <div class="mb-3">
                 <h2>モード</h2>
                 <div class="form-check">
                   <label class="form-check-label" for="high-quality-flg"
-                    >高画質モード</label
+                    >high quality mode</label
                   >
                   <input
                     class="form-check-input"
@@ -122,7 +121,7 @@
                 <!--デバッグモード-->
                 <div class="form-check">
                   <label class="form-check-label" for="debug-flg"
-                    >デバッグモード</label
+                    >debug mode</label
                   >
                   <input
                     class="form-check-input"
@@ -137,7 +136,7 @@
                 <h2>aria2c</h2>
                 <div class="form-check mb-2">
                   <label class="form-check-label" for="aria2c-j"
-                    >最大並列ダウンロード数</label
+                    >Max concurrent downloads</label
                   >
                   <input
                     type="text"
@@ -148,7 +147,7 @@
                 </div>
                 <div class="form-check mb-2">
                   <label class="form-check-label" for="aria2c-x"
-                    >1サーバー当りの最大接続数</label
+                    >Max connection per server</label
                   >
                   <input
                     type="text"
@@ -159,7 +158,7 @@
                 </div>
                 <div class="form-check mb-3">
                   <label class="form-check-label" for="aria2c-k"
-                    >分割の最小サイズ</label
+                    >Min split size</label
                   >
                   <input
                     type="text"
@@ -173,12 +172,12 @@
               <div class="mt-3">
                 <h2>Docker</h2>
                 <div class="row g-3 align-items-center mb-2">
-                  <div class="col-5">
+                  <div class="col-4">
                     <label class="col-form-label" for="env_path"
                       >Docker install directory</label
                     >
                   </div>
-                  <div class="col-7">
+                  <div class="col-8">
                     <input
                       type="text"
                       class="form-control mb-2 mr-sm-2"
@@ -189,12 +188,12 @@
                 </div>
                 <!--youtube-dl Docker image-->
                 <div class="row align-items-center">
-                  <div class="col-5">
+                  <div class="col-4">
                     <label class="col-form-label" for="docker-image"
                       >youtube-dl Docker image</label
                     >
                   </div>
-                  <div class="col-7">
+                  <div class="col-8">
                     <input
                       type="text"
                       class="form-control mb-2 mr-sm-2"
@@ -208,11 +207,9 @@
           </div>
         </div>
       </div>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end my-2">
-        <button id="save-button" class="btn btn-primary me-md-2">保存</button>
-        <button id="close-button" class="btn btn-outline-primary">
-          閉じる
-        </button>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start my-2">
+        <button id="save-button" class="btn btn-primary me-md-2">Save</button>
+        <button id="close-button" class="btn btn-outline-primary">Close</button>
       </div>
     </div>
     <script type="text/javascript" src="setting.js" defer></script>
