@@ -165,6 +165,10 @@ ipcMain.handle("get:setting", async (event, key) => {
 // youtube_password読み取り
 ipcMain.handle("get:youtube_password", async (event) => {
   log.debug("get:youtube_password");
+
+  // 設定ファイル確認
+  if (!store.has("setting")) return "";
+  
   const youtube_id = store.get("setting")["youtube_id"];
   let result = "";
   if (store.has("setting") && youtube_id) {
