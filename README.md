@@ -13,8 +13,9 @@ You can download videos by the following steps.
 1. Install Docker Desktop. [https://www.docker.com/get-started](https://www.docker.com/get-started)
 2. Open youtube-dl-gui.
 3. Click the setting button and set download directory.
-4. Enter URL.
-5. Click download button.
+4. If needed, set Docker install directory like /usr/local/bin, which is the directory that contains docker in Advanced settings window.
+5. After settings, Enter URL in home window.
+6. Click download button.
 
 # Description
 It is possible to download YouTube videos to use youtube-dl.
