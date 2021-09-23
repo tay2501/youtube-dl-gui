@@ -328,7 +328,7 @@ function do_spawn(exeFile, args, option, rownum) {
   });
   child.on("error", (err) => {
     log.error("child error : ", err);
-    send_download_status(rownum, err, ture);
+    send_download_status(rownum, err, true);
     showErrorMessageSync(err.message);
   });
 }
