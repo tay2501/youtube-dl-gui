@@ -1,3 +1,5 @@
+[!["Buy Me a Coffee at ko-fi.com"](https://storage.ko-fi.com/cdn/kofi6.png?v=6)](https://ko-fi.com/Z8Z31J3LMW)
+
 # youtube-dl-gui
 youtube-dl-gui is GUI for youtube-dl.
 It is made by electron, so that it is cross-platform desktop app.
