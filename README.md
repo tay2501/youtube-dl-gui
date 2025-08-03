@@ -1,4 +1,4 @@
-[!["Buy Me a Coffee at ko-fi.com"](https://storage.ko-fi.com/cdn/kofi6.png?v=6)](https://ko-fi.com/Z8Z31J3LMW)
+<a href='https://ko-fi.com/Z8Z31J3LMW' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi5.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 # youtube-dl-gui
 youtube-dl-gui is GUI for youtube-dl.
